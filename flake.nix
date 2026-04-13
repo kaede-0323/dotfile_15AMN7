@@ -8,8 +8,6 @@
       "https://siketyan.cachix.org"
       # Cachy OS kernel
       "https://attic.xuyh0120.win/lantian"
-      # llm-agents cache
-      "https://cache.numtide.com"
     ];
     extra-trusted-public-keys = [
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
@@ -17,7 +15,6 @@
       "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
       "siketyan.cachix.org-1:WNNtRH3yo7wUpQ0aURUTCq2BpF97m4UsP0h1nKe6pAA="
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
-      "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
     ];
   };
   inputs = {
