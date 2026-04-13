@@ -22,10 +22,6 @@ let
         src = inputs.nixpkgs;
         patches = map originPkgs.fetchpatch remoteNixpkgsPatches;
       };
-      pkgs-staging-next = import inputs.nixpkgs-staging-next {
-        inherit system;
-        config.allowUnfree = true;
-      };
       lib = originPkgs.lib;
       hostPlatform = originPkgs.stdenv.hostPlatform;
       nixosSystem = import (nixpkgs + "/nixos/lib/eval-config.nix");
@@ -79,7 +75,6 @@ let
                   inputs
                   system
                   hostPlatform
-                  pkgs-staging-next
                   ;
                 isHomeManager = true;
               };
@@ -124,7 +119,6 @@ let
           hostname
           usernames
           system
-          pkgs-staging-next
           hostPlatform
           ;
         isHomeManager = false;
@@ -234,6 +228,7 @@ in
 {
   nixos = {
     # System configurations
+    # Canonical i3 machine target: `IDEA_15AMN7`
     IDEA_15AMN7 = createSystem {
       system = "x86_64-linux";
       hostname = "15AMN7";
@@ -243,7 +238,7 @@ in
       homes = [
         rec {
           username = "ocho";
-          confPath = ./15AMN7/home-manager.nix;
+          confPath = ./15AMN7/home-manager-minimal.nix;
           osUserConfig =
             { pkgs, ... }:
             {
@@ -278,6 +273,7 @@ in
 #        inputs.plasma-manager.homeManagerModules.plasma-manager
       ];
       sharedOptions = {
+        packs.rofi.enable = true;
 #        packs.noctalia.enable = true;
 #        packs.bemoji.enable = true;
 #        packs.android.enable = true;
@@ -334,7 +330,6 @@ in
         }
       ];
       homeModules = [
-        inputs.plasma-manager.homeManagerModules.plasma-manager
       ];
       sharedOptions = {
         packs.niri.enable = true;

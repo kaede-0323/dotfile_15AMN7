@@ -3,7 +3,6 @@
   pkgs,
   hostname,
   config,
-  pkgs-staging-next,
   ...
 }:
 {
@@ -12,13 +11,13 @@
     ./hardware-configuration.nix
   ];
   boot = {
+    supportedFilesystems = [ "btrfs" ];
     loader = {
       systemd-boot = {
         enable = true;
       };
       efi.canTouchEfiVariables = true;
     };
-    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
   };
 
   networking.networkmanager = {
@@ -29,6 +28,19 @@
     enable = true;
     displayManager.startx.enable = true;
   };
+
+
+
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  services.libinput.enable = true;
+
+  fonts.packages = with pkgs; [
+    iosevka
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-emoji
+  ];
 
   nix = {
     settings = {
