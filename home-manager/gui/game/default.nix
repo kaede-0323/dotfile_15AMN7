@@ -1,0 +1,16 @@
+{ pkgs, ... }:
+{
+  home.packages = with pkgs; [
+    # minecraft-launcher marked boroken https://github.com/NixOS/nixpkgs/pull/299645
+    # minecraft
+    prismlauncher
+    lutris
+
+    # utilities
+    gamemode
+    mangohud
+    gamescope
+
+    alcom # VCC Alternative
+  ];
+}

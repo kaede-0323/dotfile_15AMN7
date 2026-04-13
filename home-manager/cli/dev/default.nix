@@ -1,0 +1,51 @@
+{ pkgs, hostPlatform, ... }:
+let
+  stack-wrapped = pkgs.symlinkJoin {
+    name = "stack";
+    paths = [ pkgs.stack ];
+    buildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/stack \
+        --add-flags "\
+          --no-nix \
+          --system-ghc \
+          --no-install-ghc \
+        "
+    '';
+  };
+in
+{
+  imports = [
+#    ./cargo.nix
+    ./container.nix
+  ];
+  home.packages =
+    with pkgs;
+    [
+      gcc
+      go
+      nodejs-slim
+      # nodePackages.wrangler
+      # python312 conflicts on os/wm/plasma5.nix#environment.systemPackages.python3Full
+      uv
+
+      # Git Repository Management
+      siketyan-ghr
+
+    ];
+  # nix run wrapper using ,(comma)
+  programs.nix-index-database.comma.enable = true;
+  programs.nix-index.enable = true;
+
+  programs.fzf.enable = true;
+
+  programs.zsh.initContent = ''
+    source <(ghr shell)
+    source <(ghr shell --completion bash)
+
+    function gcd() {
+      local repo=$(ghr list | fzf --query="$*" --select-1 --exit-0)
+      [ -n "$repo" ] && ghr cd "$repo"
+    }
+  '';
+}
