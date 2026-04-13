@@ -349,53 +349,6 @@ in
         };
       };
     };
-    virtbox = createSystem {
-      system = "x86_64-linux";
-      hostname = "virtbox";
-      modules = [
-        ./virtbox/nixos.nix
-      ];
-      homes = [
-        rec {
-          username = "turtton";
-          confPath = ./virtbox/home-manager-hypr.nix;
-          osUserConfig =
-            { pkgs, ... }:
-            {
-              users.users."${username}".shell = pkgs.zsh;
-              services.greetd = {
-                enable = true;
-                settings = {
-                  initial_session = {
-                    command = "Hyprland";
-                    user = username;
-                  };
-                  default_session = {
-                    command = ''
-                      ${pkgs.tuigreet}/bin/tuigreet --time --cmd start-hyprland
-                    '';
-                    user = username;
-                  };
-                };
-              };
-            };
-        }
-        # rec {
-        #   username = "testuser";
-        #   confPath = ./virtbox/home-manager-hypr.nix;
-        #   osUserConfig = { pkgs, ... }: {
-        #     users.users."${username}".shell = pkgs.zsh;
-        #   };
-        # }
-      ];
-      sharedOptions = {
-        packs.bemoji.enable = true;
-        packs.bitwarden = {
-          enable = true;
-          ssh-agent = true;
-        };
-      };
-    };
     atticserver = createSystem {
       system = "x86_64-linux";
       hostname = "atticserver";
@@ -457,16 +410,13 @@ in
     };
   };
   home-manager = {
-    /*
-      "turtton@virtbox" = createHomeManagerConfig {
+      "ocho@15AMN7" = createHomeManagerConfig {
       system = "x86_64-linux";
-      username = "turtton";
+      username = "ocho";
       modules = [
-        ./virtbox/home-manager.nix
-        inputs.plasma-manager.homeManagerModules.plasma-manager
+        ./15AMN7/home-manager.nix
         ./../overlay
       ];
-        };
-    */
+      };
   };
 }
