@@ -278,7 +278,6 @@ in
 #        inputs.plasma-manager.homeManagerModules.plasma-manager
       ];
       sharedOptions = {
-#        packs.niri.enable = true;
 #        packs.noctalia.enable = true;
 #        packs.bemoji.enable = true;
 #        packs.android.enable = true;

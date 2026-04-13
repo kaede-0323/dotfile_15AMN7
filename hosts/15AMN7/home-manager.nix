@@ -21,6 +21,7 @@
 
   xsession = {
     enable = true;
+    windowManager.xmonad.enable = false;
     windowManager.i3 = {
       enable = true;
       package = pkgs.i3;
@@ -54,4 +55,6 @@
       };
     };
   };
+
+  wayland.windowManager.hyprland.enable = false;
 }
